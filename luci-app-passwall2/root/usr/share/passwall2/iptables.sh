@@ -24,6 +24,12 @@ ip6t_m="$ip6t -t mangle -w"
 FWI=$(uci -q get firewall.passwall2.path 2>/dev/null)
 FAKE_IP="198.18.0.0/16"
 
+echolog() {
+        local d="$(date "+%Y-%m-%d %H:%M:%S")"
+        #echo -e "$d: $1"
+        echo -e "$d: $1" >> $LOG_FILE
+}
+
 factor() {
 	if [ -z "$1" ] || [ -z "$2" ]; then
 		echo ""
