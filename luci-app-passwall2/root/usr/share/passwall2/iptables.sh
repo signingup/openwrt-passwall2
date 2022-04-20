@@ -31,12 +31,6 @@ echolog() {
         echo -e "$d: $1" >> $LOG_FILE
 }
 
-echolog() {
-        local d="$(date "+%Y-%m-%d %H:%M:%S")"
-        #echo -e "$d: $1"
-        echo -e "$d: $1" >> $LOG_FILE
-}
-
 factor() {
 	if [ -z "$1" ] || [ -z "$2" ]; then
 		echo ""
