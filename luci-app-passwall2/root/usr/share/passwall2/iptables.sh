@@ -822,6 +822,8 @@ add_firewall_rule() {
 		fi
 	fi
 
+	$ipt_m -A PSW2 -p udp --dport 53 -j RETURN
+	$ip6t_m -A PSW2 -p udp --dport 53 -j RETURN
 	#  加载ACLS
 	load_acl
 
