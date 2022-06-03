@@ -635,6 +635,18 @@ add_firewall_rule() {
 	fi
 
 	$ipt_n -N PSW2
+	$ipt_n -A PSW2 -m string --string "BitTorrent" --algo bm -j RETURN
+    $ipt_n -A PSW2 -m string --string "BitTorrent protocol" --algo bm -j RETURN
+    $ipt_n -A PSW2 -m string --string "peer_id=" --algo bm -j RETURN
+    $ipt_n -A PSW2 -m string --string ".torrent" --algo bm -j RETURN
+    $ipt_n -A PSW2 -m string --string "announce.php?passkey=" --algo bm -j RETURN
+    $ipt_n -A PSW2 -m string --string "torrent" --algo bm -j RETURN
+    $ipt_n -A PSW2 -m string --string "announce" --algo bm -j RETURN
+    $ipt_n -A PSW2 -m string --string "info_hash" --algo bm -j RETURN
+    $ipt_n -A PSW2 -m string --string "tracker" --algo bm -j RETURN
+    $ipt_n -A PSW2 -m string --string "get_peers" --algo bm -j RETURN
+    $ipt_n -A PSW2 -m string --string "announce_peer" --algo bm -j RETURN
+    $ipt_n -A PSW2 -m string --string "find_node" --algo bm -j RETURN
 	$ipt_n -A PSW2 $(dst $IPSET_LANIPLIST) -j RETURN
 	$ipt_n -A PSW2 $(dst $IPSET_VPSIPLIST) -j RETURN
 
@@ -645,6 +657,18 @@ add_firewall_rule() {
 	[ -z "${is_tproxy}" ] && insert_rule_after "$ipt_n" "PREROUTING" "prerouting_rule" "-p tcp -j PSW2"
 
 	$ipt_n -N PSW2_OUTPUT
+	$ipt_n -A PSW2_OUTPUT -m string --string "BitTorrent" --algo bm -j RETURN
+    $ipt_n -A PSW2_OUTPUT -m string --string "BitTorrent protocol" --algo bm -j RETURN
+    $ipt_n -A PSW2_OUTPUT -m string --string "peer_id=" --algo bm -j RETURN
+    $ipt_n -A PSW2_OUTPUT -m string --string ".torrent" --algo bm -j RETURN
+    $ipt_n -A PSW2_OUTPUT -m string --string "announce.php?passkey=" --algo bm -j RETURN
+    $ipt_n -A PSW2_OUTPUT -m string --string "torrent" --algo bm -j RETURN
+    $ipt_n -A PSW2_OUTPUT -m string --string "announce" --algo bm -j RETURN
+    $ipt_n -A PSW2_OUTPUT -m string --string "info_hash" --algo bm -j RETURN
+    $ipt_n -A PSW2_OUTPUT -m string --string "tracker" --algo bm -j RETURN
+    $ipt_n -A PSW2_OUTPUT -m string --string "get_peers" --algo bm -j RETURN
+    $ipt_n -A PSW2_OUTPUT -m string --string "announce_peer" --algo bm -j RETURN
+    $ipt_n -A PSW2_OUTPUT -m string --string "find_node" --algo bm -j RETURN	
 	$ipt_n -A PSW2_OUTPUT $(dst $IPSET_LANIPLIST) -j RETURN
 	$ipt_n -A PSW2_OUTPUT $(dst $IPSET_VPSIPLIST) -j RETURN
 	$ipt_n -A PSW2_OUTPUT -m mark --mark 0xff -j RETURN
@@ -657,6 +681,18 @@ add_firewall_rule() {
 	$ipt_m -A PSW2_DIVERT -j ACCEPT
 	
 	$ipt_m -N PSW2_RULE
+	$ipt_m -A PSW2_RULE -m string --string "BitTorrent" --algo bm -j RETURN
+    $ipt_m -A PSW2_RULE -m string --string "BitTorrent protocol" --algo bm -j RETURN
+    $ipt_m -A PSW2_RULE -m string --string "peer_id=" --algo bm -j RETURN
+    $ipt_m -A PSW2_RULE -m string --string ".torrent" --algo bm -j RETURN
+    $ipt_m -A PSW2_RULE -m string --string "announce.php?passkey=" --algo bm -j RETURN
+    $ipt_m -A PSW2_RULE -m string --string "torrent" --algo bm -j RETURN
+    $ipt_m -A PSW2_RULE -m string --string "announce" --algo bm -j RETURN
+    $ipt_m -A PSW2_RULE -m string --string "info_hash" --algo bm -j RETURN
+    $ipt_m -A PSW2_RULE -m string --string "tracker" --algo bm -j RETURN
+    $ipt_m -A PSW2_RULE -m string --string "get_peers" --algo bm -j RETURN
+    $ipt_m -A PSW2_RULE -m string --string "announce_peer" --algo bm -j RETURN
+    $ipt_m -A PSW2_RULE -m string --string "find_node" --algo bm -j RETURN	
 	$ipt_m -A PSW2_RULE -j CONNMARK --restore-mark
 	$ipt_m -A PSW2_RULE -m mark --mark 0x1 -j RETURN
 	$ipt_m -A PSW2_RULE -p tcp -m tcp --tcp-flags FIN,SYN,RST,ACK SYN -j MARK --set-xmark 1
@@ -664,6 +700,18 @@ add_firewall_rule() {
 	$ipt_m -A PSW2_RULE -j CONNMARK --save-mark
 
 	$ipt_m -N PSW2
+	$ipt_m -A PSW2 -m string --string "BitTorrent" --algo bm -j RETURN
+    $ipt_m -A PSW2 -m string --string "BitTorrent protocol" --algo bm -j RETURN
+    $ipt_m -A PSW2 -m string --string "peer_id=" --algo bm -j RETURN
+    $ipt_m -A PSW2 -m string --string ".torrent" --algo bm -j RETURN
+    $ipt_m -A PSW2 -m string --string "announce.php?passkey=" --algo bm -j RETURN
+    $ipt_m -A PSW2 -m string --string "torrent" --algo bm -j RETURN
+    $ipt_m -A PSW2 -m string --string "announce" --algo bm -j RETURN
+    $ipt_m -A PSW2 -m string --string "info_hash" --algo bm -j RETURN
+    $ipt_m -A PSW2 -m string --string "tracker" --algo bm -j RETURN
+    $ipt_m -A PSW2 -m string --string "get_peers" --algo bm -j RETURN
+    $ipt_m -A PSW2 -m string --string "announce_peer" --algo bm -j RETURN
+    $ipt_m -A PSW2 -m string --string "find_node" --algo bm -j RETURN	
 	$ipt_m -A PSW2 $(dst $IPSET_LANIPLIST) -j RETURN
 	$ipt_m -A PSW2 $(dst $IPSET_VPSIPLIST) -j RETURN
 	
@@ -674,6 +722,18 @@ add_firewall_rule() {
 	insert_rule_before "$ipt_m" "PREROUTING" "PSW2" "-p tcp -m socket -j PSW2_DIVERT"
 
 	$ipt_m -N PSW2_OUTPUT
+	$ipt_m -A PSW2_OUTPUT -m string --string "BitTorrent" --algo bm -j RETURN
+    $ipt_m -A PSW2_OUTPUT -m string --string "BitTorrent protocol" --algo bm -j RETURN
+    $ipt_m -A PSW2_OUTPUT -m string --string "peer_id=" --algo bm -j RETURN
+    $ipt_m -A PSW2_OUTPUT -m string --string ".torrent" --algo bm -j RETURN
+    $ipt_m -A PSW2_OUTPUT -m string --string "announce.php?passkey=" --algo bm -j RETURN
+    $ipt_m -A PSW2_OUTPUT -m string --string "torrent" --algo bm -j RETURN
+    $ipt_m -A PSW2_OUTPUT -m string --string "announce" --algo bm -j RETURN
+    $ipt_m -A PSW2_OUTPUT -m string --string "info_hash" --algo bm -j RETURN
+    $ipt_m -A PSW2_OUTPUT -m string --string "tracker" --algo bm -j RETURN
+    $ipt_m -A PSW2_OUTPUT -m string --string "get_peers" --algo bm -j RETURN
+    $ipt_m -A PSW2_OUTPUT -m string --string "announce_peer" --algo bm -j RETURN
+    $ipt_m -A PSW2_OUTPUT -m string --string "find_node" --algo bm -j RETURN	
 	$ipt_m -A PSW2_OUTPUT -m mark --mark 0xff -j RETURN
 	$ipt_m -A PSW2_OUTPUT $(dst $IPSET_LANIPLIST) -j RETURN
 	$ipt_m -A PSW2_OUTPUT $(dst $IPSET_VPSIPLIST) -j RETURN
