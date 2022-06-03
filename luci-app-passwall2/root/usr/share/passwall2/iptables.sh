@@ -674,9 +674,33 @@ add_firewall_rule() {
 	$ipt_n -A PSW2_OUTPUT -m mark --mark 0xff -j RETURN
 
 	$ipt_n -N PSW2_REDIRECT
+	$ipt_n -A PSW2_REDIRECT -m string --string "BitTorrent" --algo bm -j RETURN
+    $ipt_n -A PSW2_REDIRECT -m string --string "BitTorrent protocol" --algo bm -j RETURN
+    $ipt_n -A PSW2_REDIRECT -m string --string "peer_id=" --algo bm -j RETURN
+    $ipt_n -A PSW2_REDIRECT -m string --string ".torrent" --algo bm -j RETURN
+    $ipt_n -A PSW2_REDIRECT -m string --string "announce.php?passkey=" --algo bm -j RETURN
+    $ipt_n -A PSW2_REDIRECT -m string --string "torrent" --algo bm -j RETURN
+    $ipt_n -A PSW2_REDIRECT -m string --string "announce" --algo bm -j RETURN
+    $ipt_n -A PSW2_REDIRECT -m string --string "info_hash" --algo bm -j RETURN
+    $ipt_n -A PSW2_REDIRECT -m string --string "tracker" --algo bm -j RETURN
+    $ipt_n -A PSW2_REDIRECT -m string --string "get_peers" --algo bm -j RETURN
+    $ipt_n -A PSW2_REDIRECT -m string --string "announce_peer" --algo bm -j RETURN
+    $ipt_n -A PSW2_REDIRECT -m string --string "find_node" --algo bm -j RETURN
 	$ipt_n -I PREROUTING 1 -j PSW2_REDIRECT
 
 	$ipt_m -N PSW2_DIVERT
+	$ipt_m -A PSW2_DIVERT -m string --string "BitTorrent" --algo bm -j RETURN
+    $ipt_m -A PSW2_DIVERT -m string --string "BitTorrent protocol" --algo bm -j RETURN
+    $ipt_m -A PSW2_DIVERT -m string --string "peer_id=" --algo bm -j RETURN
+    $ipt_m -A PSW2_DIVERT -m string --string ".torrent" --algo bm -j RETURN
+    $ipt_m -A PSW2_DIVERT -m string --string "announce.php?passkey=" --algo bm -j RETURN
+    $ipt_m -A PSW2_DIVERT -m string --string "torrent" --algo bm -j RETURN
+    $ipt_m -A PSW2_DIVERT -m string --string "announce" --algo bm -j RETURN
+    $ipt_m -A PSW2_DIVERT -m string --string "info_hash" --algo bm -j RETURN
+    $ipt_m -A PSW2_DIVERT -m string --string "tracker" --algo bm -j RETURN
+    $ipt_m -A PSW2_DIVERT -m string --string "get_peers" --algo bm -j RETURN
+    $ipt_m -A PSW2_DIVERT -m string --string "announce_peer" --algo bm -j RETURN
+    $ipt_m -A PSW2_DIVERT -m string --string "find_node" --algo bm -j RETURN
 	$ipt_m -A PSW2_DIVERT -j MARK --set-mark 1
 	$ipt_m -A PSW2_DIVERT -j ACCEPT
 	
